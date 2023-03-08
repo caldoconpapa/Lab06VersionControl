@@ -37,8 +37,20 @@ def encode(password):
     # join the str elements in the list into a single string to be called upon in Option: 2
     return new_code
 
-def decode():
-    pass
+def decode(password):  # this function decodes the encoded password by subtracting 3 from each value in the numeric password
+
+    #Julius Inocencio
+    decoded = ''
+    for i in password:
+        x = int(i) - 3 #subtracts 3 from the current value as it loops through
+
+        if x < 0: # if the value is less than 0, checks if there is a remainder and adds 1
+            y = x % 9 #  not sure why this works, but it should be 9 % x
+            decoded += str(y+1)  #adds 1 to the 'decoded' string if x < 0
+        else:
+            decoded += str(x)  # adds to the 'decoded' list after doing the math
+    return decoded
+
 
 def main():
     global new_code
@@ -54,12 +66,13 @@ def main():
         choice = int(input('Please enter an option: '))
         if choice == 1:
             password = str(input('Please enter your password to encode: '))
-            encode(password)
+            encoded = encode(password) # Added encoded variable to refer to in print statement for choice 2 - Julius
             print('Your password has been encoded and stored!')
             print()
 
         elif choice == 2:
-            print(f'The encoded password is {new_code}, and the original password is {old_code}.')
+            decoded = decode(encode(password)) #  Added decoded variable for clarification and use in print statement - Julius
+            print(f'The encoded password is {encoded}, and the original password is {decoded}.')
             print()
 
         elif choice == 3:
